@@ -1,0 +1,17 @@
+name: Hello
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - name: 🐞 File argument path
+        run: for f in $(git diff-tree --no-commit-id --name-only -r ${{ github.sha }});
+          do
+            echo "$f"
+          done
